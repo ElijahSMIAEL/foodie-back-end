@@ -11,7 +11,7 @@ const commentSchema = new Schema({
 
 const postSchema = new Schema({
   review: {type: String, required: true},
-  foodBeverage: {type: String, required: true},
+  foodBeverage:String,
   author: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
   restaurant: {type: mongoose.Schema.Types.ObjectId, ref: "Restaurant"},
   comments: [commentSchema],

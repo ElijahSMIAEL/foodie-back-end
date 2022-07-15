@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import * as postsCtrl from '../controllers/posts.js'
+import * as restaurantsCtrl from '../controllers/restaurants.js'
 import { decodeUserFromToken, checkAuth } from '../middleware/auth.js'
 
 const router = Router()
@@ -9,8 +9,6 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
-router.post('/', checkAuth, postsCtrl.create)
-
-
+router.get('/search/:restaurantName', checkAuth, restaurantsCtrl.search)
 
 export { router }

@@ -4,7 +4,8 @@ const Schema = mongoose.Schema
 
 const restaurantSchema = new Schema({
   title: {type: String, required: true},
-  category: String
+  category: String,
+  photo: String,
 }, {
   timestamps: true
 })

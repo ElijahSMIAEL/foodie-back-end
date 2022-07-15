@@ -2,13 +2,20 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
 
-const postSchema = new Schema({
+const commentSchema = new Schema({
   comment: {type: String, required: true},
+  author: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"}
+}, {
+  timestamps: true
+})
+
+const postSchema = new Schema({
+  review: {type: String, required: true},
   foodBeverage: {type: String, required: true},
   author: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
-  restaurant: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
-  replies: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
-  item: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
+  restaurant: {type: mongoose.Schema.Types.ObjectId, ref: "Restaurant"},
+  comments: [commentSchema],
+  item: {type: mongoose.Schema.Types.ObjectId, ref: "Item"},
   photo: String,
 }, {
   timestamps: true

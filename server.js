@@ -6,6 +6,7 @@ import cors from 'cors'
 import { router as profilesRouter } from './routes/profiles.js'
 import { router as authRouter } from './routes/auth.js'
 import { router as postsRouter} from './routes/posts.js'
+import { router as restaurantsRouter} from './routes/restaurants.js'
 
 import './config/database.js'
 
@@ -18,6 +19,7 @@ app.use(express.json())
 app.use('/api/profiles', profilesRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/posts', postsRouter)
+app.use('/api/restaurants', restaurantsRouter)
 
 
 app.use(function (req, res, next) {

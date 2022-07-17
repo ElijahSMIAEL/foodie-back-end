@@ -12,6 +12,7 @@ router.get('/', postsCtrl.index)
 router.use(decodeUserFromToken)
 router.post('/', checkAuth, postsCtrl.create)
 router.delete('/:id', checkAuth, postsCtrl.delete)
+router.put('/:id', checkAuth, postsCtrl.update)
 
 
 

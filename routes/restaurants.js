@@ -9,6 +9,6 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
-router.get('/search/:restaurantName', checkAuth, restaurantsCtrl.search)
+router.get('/search/:location/:query', checkAuth, restaurantsCtrl.search)
 
 export { router }

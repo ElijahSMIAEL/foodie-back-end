@@ -8,9 +8,13 @@ const apiKey = `${process.env.API_KEY}`
 const apiBaseUrl = 'https://api.yelp.com/v3/businesses'
 
 function search(req, res) {
-  axios.get(`${apiBaseUrl}/search?term=${userInput}&location=${userlocation}&categories=food`, config)
-    .then((res) => {
-      console.log(res)
+  axios.get(`${apiBaseUrl}/search?term=$${req.params.query}&location=$${req.params.location}&categories=food`, {
+    headers: {
+        Authorization: `Bearer ${apiKey}`
+    }
+    }, config)
+    .then((result) => {
+      res.json({result: result.data})
     })
     .catch((err) => {
       console.log(err)

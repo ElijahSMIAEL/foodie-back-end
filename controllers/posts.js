@@ -29,7 +29,20 @@ function index(req, res) {
 
 }
 
+function deletePost(req, res){
+  Post.findByIdAndDelete(req.params.id)
+  .then(deletedPost => {
+    res.json(deletedPost)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
+
 export {
     create,
     index,
+    deletePost as delete
 }

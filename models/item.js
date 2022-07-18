@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
 const itemSchema = new Schema({
-  title: {type: String, required: true},
-  price: String
+  itemTitle: {type: String, required: true},
+  itemPrice: String
 }, {
   timestamps: true
 })

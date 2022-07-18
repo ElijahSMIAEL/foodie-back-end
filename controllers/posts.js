@@ -1,13 +1,22 @@
+import { Item } from '../models/item.js'
 import {Post} from '../models/post.js'
 
 function create(req, res) {
   req.body.author = req.user.profile
-  Post.create(req.body)
-  .then(post => {
-    Post.findById(post._id)
-    .populate('author')
-    .then(populatedPost => {
-        res.json(populatedPost)
+  console.log(req.body)
+  Item.create(req.body)
+  .then(item => {
+    Item.findById(item._id)
+    .then(item => {
+      req.body.item = item
+      Post.create(req.body)
+      .then(post => {
+        Post.findById(post._id)
+        .populate('author')
+        .then(populatedPost => {
+          res.json(populatedPost)
+        })
+      })
     })
   })
   .catch(err => {

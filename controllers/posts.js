@@ -1,5 +1,6 @@
 import { Item } from '../models/item.js'
 import {Post} from '../models/post.js'
+import { v2 as cloudinary } from 'cloudinary'
 
 function create(req, res) {
   req.body.author = req.user.profile
@@ -61,10 +62,30 @@ function update(req, res) {
   })
 }
 
+function addPhoto(req, res) {
+  const imageFile = req.files.photo.path
+  Post.findById(req.params.id)
+  .then(post => {
+    console.log(post)
+    cloudinary.uploader.upload(imageFile, {tags: `${post.review}`})
+    .then(image => {
+      post.photo = image.url
+      post.save()
+      .then(post => {
+        res.status(201).json(post.photo)
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json(err)
+    })
+  })
+}
 
 export {
     create,
     index,
     deletePost as delete,
-    update
+    update,
+    addPhoto
 }

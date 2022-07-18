@@ -82,10 +82,20 @@ function addPhoto(req, res) {
   })
 }
 
+function show(req, res) {
+  Post.findById(req.params.id)
+  .then(post => res.json(post))
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
+
 export {
     create,
     index,
     deletePost as delete,
     update,
-    addPhoto
+    addPhoto,
+    show
 }

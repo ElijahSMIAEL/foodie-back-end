@@ -84,6 +84,7 @@ function addPhoto(req, res) {
 
 function show(req, res) {
   Post.findById(req.params.id)
+  .populate('item')
   .then(post => res.json(post))
   .catch(err => {
     console.log(err)

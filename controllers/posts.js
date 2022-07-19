@@ -95,6 +95,8 @@ function addPhoto(req, res) {
 
 function show(req, res) {
   Post.findById(req.params.id)
+  .populate('author')
+  .populate('restaurant')
   .populate('item')
   .then(post => res.json(post))
   .catch(err => {

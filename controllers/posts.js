@@ -1,6 +1,7 @@
 import { Item } from '../models/item.js'
 import {Post} from '../models/post.js'
 import { v2 as cloudinary } from 'cloudinary'
+import { Profile } from '../models/profile.js'
 
 function create(req, res) {
   req.body.author = req.user.profile
@@ -95,10 +96,13 @@ function show(req, res) {
 function createComment(req, res) {
   Post.findById(req.params.id)
   .then(post => {
-    req.body.author = req.user.profile
-    post.comments.push(req.body)
-    post.save()
-    .then(updatedPost => res.json(updatedPost))
+    Profile.findById(req.user.profile)
+    .then(profile => {
+      req.body.author = profile.name
+      post.comments.push(req.body)
+      post.save()
+      .then(updatedPost => res.json(updatedPost))
+    })
   })
   .catch(err => {
     console.log(err)

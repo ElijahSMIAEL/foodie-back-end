@@ -92,10 +92,10 @@ function show(req, res) {
 }
 
 function createComment(req, res) {
-  console.log(req.body)
   Post.findById(req.params.id)
   .then(post => {
-    // post.comments.push(req.body)
+    req.body.author = req.user.profile
+    post.comments.push(req.body)
     post.save()
     .then(updatedPost => res.json(updatedPost))
   })

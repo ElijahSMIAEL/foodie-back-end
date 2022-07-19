@@ -91,11 +91,26 @@ function show(req, res) {
   })
 }
 
+function createComment(req, res) {
+  console.log(req.body)
+  Post.findById(req.params.id)
+  .then(post => {
+    // post.comments.push(req.body)
+    post.save()
+    .then(updatedPost => res.json(updatedPost))
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
+
 export {
     create,
     index,
     deletePost as delete,
     update,
     addPhoto,
-    show
+    show,
+    createComment
 }

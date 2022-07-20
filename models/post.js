@@ -4,13 +4,13 @@ const Schema = mongoose.Schema
 
 const commentSchema = new Schema({
   comment: {type: String, required: true},
-  author: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"}
+  author: String,
 }, {
   timestamps: true
 })
 
 const postSchema = new Schema({
-  review: {type: String, required: true},
+  review: {type: String, required: true}, 
   foodBeverage: String,
   author: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
   restaurant: {type: mongoose.Schema.Types.ObjectId, ref: "Restaurant"},

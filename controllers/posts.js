@@ -122,6 +122,15 @@ function createComment(req, res) {
   })
 }
 
+function deleteComment(req, res) {
+  Post.findById(req.params.id)
+  .then(post => {
+    post.comments.remove({_id:req.params.commentId})
+    post.save()
+    .then(updatedPost => res.json(updatedPost))
+  })
+}
+
 export {
     create,
     index,
@@ -130,4 +139,5 @@ export {
     addPhoto,
     show,
     createComment,
+    deleteComment
 }

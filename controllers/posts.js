@@ -123,16 +123,26 @@ function createComment(req, res) {
 }
 
 function deleteComment(req, res) {
-  console.log('Backend has been reached!')
-  Post.findByIdAndRemove(req.params.commentId)
+  Post.findById(req.params.id)
   .then(post => {
-      post.save()
-      .then(post => res.json(post))
+    console.log('Comment ID ************************', post.comment._id)
+
+    post.comments = post.comments.filter(comment => comment._id !== req.params.commentId)
+    post.save()
+    console.log(post)
+    .then(updatedPost => res.json(updatedPost))
   })
-  .catch(err => {
-    console.log(err)
-    res.status(500).json(err)
-  })
+
+  // console.log('Backend has been reached!')
+  // Post.findByIdAndRemove(req.params.commentId)
+  // .then(post => {
+  //     post.save()
+  //     .then(post => res.json(post))
+  // })
+  // .catch(err => {
+  //   console.log(err)
+  //   res.status(500).json(err)
+  // })
 }
 
 export {

@@ -123,6 +123,7 @@ function createComment(req, res) {
 }
 
 function deleteComment(req, res) {
+  console.log('Backend has been reached!')
   Post.findByIdAndRemove(req.params.commentId)
   .then(post => {
       post.save()

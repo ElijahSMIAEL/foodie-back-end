@@ -129,5 +129,5 @@ export {
     update,
     addPhoto,
     show,
-    createComment
+    createComment,
 }

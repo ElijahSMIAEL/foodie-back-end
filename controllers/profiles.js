@@ -23,7 +23,7 @@ function update(req, res) {
   .then(profile => {
     profile.name = req.body.name
     profile.bio = req.body.bio
-    
+    profile.save()
     .then(updatedProfile => res.json(updatedProfile))
   })
   .catch(err => {

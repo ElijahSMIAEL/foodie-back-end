@@ -18,7 +18,22 @@ function show(req, res) {
   })
 }
 
+function update(req, res) {
+  Profile.findById(req.params.id)
+  .then(profile => {
+    profile.name = req.body.name
+    profile.bio = req.body.bio
+    profile.save()
+    .then(updatedProfile => res.json(updatedProfile))
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
+
 export { 
   index, 
-  show, 
+  show,
+  update, 
 }

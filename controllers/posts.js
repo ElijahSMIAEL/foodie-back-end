@@ -21,6 +21,8 @@ function create(req, res) {
             .then(post => {
               Post.findById(post._id)
               .populate('author')
+              .populate('restaurant')
+              .populate('item')
               .then(populatedPost => {
                 res.json(populatedPost)
               })
@@ -64,6 +66,8 @@ function deletePost(req, res){
 function update(req, res) {
     Post.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .populate('author')
+    .populate('restaurant')
+    .populate('item')
     .then(updatedPost => {
       res.json(updatedPost)
     })

@@ -77,7 +77,6 @@ function addPhoto(req, res) {
   const imageFile = req.files.photo.path
   Post.findById(req.params.id)
   .then(post => {
-    console.log(post)
     cloudinary.uploader.upload(imageFile, {tags: `${post.review}`})
     .then(image => {
       post.photo = image.url
@@ -129,6 +128,37 @@ function deleteComment(req, res) {
     post.save()
     .then(updatedPost => res.json(updatedPost))
   })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
+
+function like(req, res) {
+  const user = req.user
+  Post.findById(req.params.id)
+  .populate('author')
+  .populate('restaurant')
+  .populate('item')
+  .then(post => {
+    if(!post.likes.some(like => {
+      return like === user.profile
+    })) {
+      post.likes.push(user.profile)
+      post.save()
+      .then(likePost => res.json(likePost))
+    } else if(post.likes.some(like => {
+      return like === user.profile
+    })) {
+      post.likes.remove(user.profile)
+      post.save()
+      .then(likePost =>res.json(likePost))
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
 }
 
 export {
@@ -139,5 +169,6 @@ export {
     addPhoto,
     show,
     createComment,
-    deleteComment
+    deleteComment,
+    like
 }

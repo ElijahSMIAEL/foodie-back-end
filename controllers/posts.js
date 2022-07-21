@@ -21,6 +21,8 @@ function create(req, res) {
             .then(post => {
               Post.findById(post._id)
               .populate('author')
+              .populate('restaurant')
+              .populate('item')
               .then(populatedPost => {
                 res.json(populatedPost)
               })

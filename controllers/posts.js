@@ -66,6 +66,8 @@ function deletePost(req, res){
 function update(req, res) {
     Post.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .populate('author')
+    .populate('restaurant')
+    .populate('item')
     .then(updatedPost => {
       res.json(updatedPost)
     })

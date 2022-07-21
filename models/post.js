@@ -16,6 +16,7 @@ const postSchema = new Schema({
   restaurant: {type: mongoose.Schema.Types.ObjectId, ref: "Restaurant"},
   comments: [commentSchema],
   item: {type: mongoose.Schema.Types.ObjectId, ref: "Item"},
+  likes: [],
   photo: String,
 }, {
   timestamps: true

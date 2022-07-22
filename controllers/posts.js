@@ -110,6 +110,9 @@ function show(req, res) {
 
 function createComment(req, res) {
   Post.findById(req.params.id)
+  .populate('author')
+  .populate('restaurant')
+  .populate('item')
   .then(post => {
     Profile.findById(req.user.profile)
     .then(profile => {
@@ -127,6 +130,9 @@ function createComment(req, res) {
 
 function deleteComment(req, res) {
   Post.findById(req.params.id)
+  .populate('author')
+  .populate('restaurant')
+  .populate('item')
   .then(post => {
     post.comments.remove({_id:req.params.commentId})
     post.save()
